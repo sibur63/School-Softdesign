@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String COLOR_TOOLBAR_KEY = "t_color";
     public static final String COLOR_STATUSBAR_KEY = "s_color";
 
+    int mSaveColor1 = 0;
+    int mSaveColor2 = 0;
+
     CheckBox mCheckBox;
     EditText mEditText1, mEditText2;
     Toolbar mToolbar;
@@ -74,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *   Задание цвета
      */
     private void setMainColor(int tool_color, int stat_color){
+        mSaveColor1 = tool_color;
+        mSaveColor2 = stat_color;
+
         mToolbar.setBackgroundColor(this.getResources().getColor(tool_color));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(this.getResources().getColor(stat_color));
@@ -159,9 +165,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Lg.i(this.getLocalClassName(), "on save instance state");
         outState.putBoolean(VISIBLE_KEY, mEditText1.getVisibility() == View.VISIBLE);
 
-        outState.putInt(COLOR_TOOLBAR_KEY, ((ColorDrawable) mToolbar.getBackground()).getColor());
+        outState.putInt(COLOR_TOOLBAR_KEY, mSaveColor1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            outState.putInt(COLOR_STATUSBAR_KEY, getWindow().getStatusBarColor());
+            outState.putInt(COLOR_STATUSBAR_KEY, mSaveColor2);
         }
     }
 
